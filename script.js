@@ -181,8 +181,6 @@ function showBetModal(jugador) {
     const modal = document.getElementById("bet-modal");
     const spanCurrentPozo = document.getElementById("modal-pozo");
     const betInput = document.getElementById("bet-input");
-    const buttons = document.querySelectorAll(`#play-, #skip-`);
-    buttons.disabled = true;
 
     // Mostrar el pozo actual en el modal
     spanCurrentPozo.textContent = `$${pozo}`;
@@ -201,7 +199,6 @@ function showBetModal(jugador) {
 
     // Confirmar apuesta ingresada
     confirmBetButton.onclick = () => {
-        buttons.disabled = false;
         const inputValue = parseInt(betInput.value, 10);
         if (inputValue > 0 && inputValue <= pozo) {
             currentBet = inputValue;
@@ -213,7 +210,6 @@ function showBetModal(jugador) {
     };
 
     cancelButton.onclick = () => {
-        buttons.disabled = false;
         modal.style.display = "none";
     }
 
@@ -254,8 +250,11 @@ function processBet(player) {
 }
 
 function finishGame() {
-    const buttons = document.querySelectorAll(`#play-, #skip-`);
-    buttons.disabled = true;
+    players.forEach((player, index) => {
+        const buttons = document.querySelectorAll(`#play-${index + 1}, #skip-${index + 1}`);
+        buttons.forEach((button) => (button.disabled = true));
+    })
+    
     document.getElementById("pozo-actual").textContent = '0';
     showResults();
     showRestartButton();
@@ -288,7 +287,7 @@ function showResults() {
     });
 
     log.appendChild(results);
-    
+
     if (log.offsetHeight == 300) {
         log.style.overflowY = "scroll";
     }
