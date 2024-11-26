@@ -50,6 +50,7 @@ h1, h3 {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     text-align: center;
     transition: transform 0.2s, background-color 0.2s;
+    max-width: 500px;
 }
 
 .player:hover {
@@ -92,13 +93,15 @@ h1, h3 {
 
 /* Game Log Section */
 #log {
-    flex: 2; /* Game log takes 2 parts of the available space */
+    flex: 3; /* Game log takes 2 parts of the available space */
     padding: 15px;
-    background: #fff;
+    background: #f9f9f9;
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     overflow-y: auto;
-    max-height: 400px;
+    border: 1px solid #ddd;
+
+    
 }
 
 #log h3 {
