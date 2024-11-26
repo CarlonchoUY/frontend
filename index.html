@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carloncho</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Pantalla de configuración -->
+    <div id="setup-screen" class="container">
+        <h1>Cuidado que endulza</h1>
+        <form id="setup-form">
+            <label for="num-jugadores">Cantidad de jugadores:</label>
+            <input type="number" id="num-jugadores" min="2" max="6" value="2" required>
+            <br>
+            <label for="apuesta-inicial">Apuesta inicial por jugador ($):</label>
+            <input type="number" id="apuesta-inicial" min="1" value="10" required>
+            <br>
+            <button type="submit">Iniciar Juego</button>
+        </form>
+    </div>
+
+    <!-- Pantalla del juego -->
+    <div id="game-screen" class="container" style="display: none;">
+        <h1>Juego de Carloncho</h1>
+        <div id="game-status">
+            <p>Pozo actual: <span id="pozo-actual">$100</span></p>
+        </div>
+        <div id="players"></div>
+        <div id="log">
+            <h3>Registro de la partida</h3>
+            <ul id="game-log"></ul>
+        </div>
+    </div>
+
+    <!-- Modal para ingresar la apuesta -->
+    <div id="bet-modal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <h3>Ingrese su apuesta</h3>
+            <p>Pozo actual: <span id="modal-pozo"></span></p>
+            <input type="number" id="bet-input" min="1" placeholder="Ingrese su apuesta">
+            <div class="modal-buttons">
+                <button id="bet-all">Apostar todo</button>
+                <button id="confirm-bet">Confirmar</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
