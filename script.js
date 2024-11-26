@@ -288,6 +288,10 @@ function showResults() {
     });
 
     log.appendChild(results);
+    
+    if (log.offsetHeight == 300) {
+        log.style.overflowY = "scroll";
+    }
 }
 
 function playTurn(player) {
