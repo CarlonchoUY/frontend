@@ -5,14 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Carloncho</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="icon" type="image/x-icon" href="/static/img/favicon.webp">
 </head>
 <body>
     <!-- Pantalla de configuración -->
     <div id="setup-screen" class="container">
-        <h1>Cuidado que endulza</h1>
+        <div id="logo">
+            <img src="/static/img/logo.svg" alt="Game Logo">
+            <h3>Cuidado que endulza</h3>
+        </div>
         <form id="setup-form">
             <label for="num-jugadores">Cantidad de jugadores:</label>
-            <input type="number" id="num-jugadores" min="2" max="6" value="2" required>
+            <input type="number" id="num-jugadores" min="2" max="6" value="3" required>
             <br>
             <label for="apuesta-inicial">Apuesta inicial por jugador ($):</label>
             <input type="number" id="apuesta-inicial" min="1" value="10" required>
@@ -20,6 +24,7 @@
             <button type="submit">Iniciar Juego</button>
         </form>
     </div>
+    
 
     <!-- Pantalla del juego -->
     <div id="game-screen" class="container" style="display: none;">
@@ -43,6 +48,7 @@
             <div class="modal-buttons">
                 <button id="bet-all">Apostar todo</button>
                 <button id="confirm-bet">Confirmar</button>
+                <button id="cancel-bet">Cancelar</button>
             </div>
         </div>
     </div>
