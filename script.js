@@ -56,7 +56,6 @@ function initializeGame(numJugadores, apuestaInicial) {
 }
 
 function restartRound() {
-    registrarAccion("El jugador pierde. Reiniciando la ronda...");
     document.getElementById("pozo-actual").textContent = `$${pozo}`;
     inicializarCartas(); // Reinitialize cards for all players
     turnoActual = 1; // Reset turn to the first player
@@ -105,25 +104,36 @@ function registrarAccion(mensaje) {
     
 }
 
-function inicializarCartas() {   
+function inicializarCartas() {
     baraja = shuffle(generateDeck());
-    jugadores.forEach((_, index) => {
-        const carta1 = baraja.pop();
-        const carta2 = baraja.pop();
-        const cartasSpan = document.getElementById(`cards-player-${index + 1}`);
-        const botones = document.querySelectorAll(`#play-${index + 1}, #skip-${index + 1}`);
 
+    // Clear previous cards and reset player UI
+    jugadores.forEach((_, index) => {
+        const cartasSpan = document.getElementById(`cards-player-${index + 1}`);
+        cartasSpan.textContent = "-";
+        const botones = document.querySelectorAll(`#play-${index + 1}, #skip-${index + 1}`);
+        botones.forEach((boton) => (boton.style.display = "none"));
+    });
+
+    // First round: deal one card to each player
+    jugadores.forEach((_, index) => {
+        const carta = baraja.pop();
+        const cartasSpan = document.getElementById(`cards-player-${index + 1}`);
+        cartasSpan.textContent = carta;
+
+        // Show buttons only for the first player
         if (index === 0) {
-            // Mostrar ambas cartas para el primer jugador
-            cartasSpan.textContent = `${carta1}, ${carta2}`;
-            botones.forEach((boton) => (boton.style.display = "inline-block")); // Mostrar botones
-        } else {
-            // Mostrar solo la primera carta para los demás
-            cartasSpan.textContent = `${carta1}`;
-            botones.forEach((boton) => (boton.style.display = "none")); // Ocultar botones
+            const botones = document.querySelectorAll(`#play-${index + 1}, #skip-${index + 1}`);
+            botones.forEach((boton) => (boton.style.display = "inline-block"));
         }
     });
+
+    // Second card for the first player
+    const cartaExtra = baraja.pop();
+    const cartasSpanFirstPlayer = document.getElementById("cards-player-1");
+    cartasSpanFirstPlayer.textContent += `, ${cartaExtra}`;
 }
+
 
 function skipTurn(jugador) {
     if (jugador !== turnoActual) return;
@@ -160,9 +170,9 @@ function turnoSiguiente() {
         }
     });
     
-    if (baraja.length <= (40 - jugadores.length * 3 - jugadores.length)) {
+    if (baraja.length < (40 - jugadores.length * 3)) {
         registrarAccion("Se acabaron las cartas. ¡Se vuelve a barajar!");
-        initializeGame(jugadores.length, apuestaInicial);
+        restartRound();
     }
 }
 
@@ -181,6 +191,7 @@ function showBetModal(jugador) {
     // Configurar botones
     const betAllButton = document.getElementById("bet-all");
     const confirmBetButton = document.getElementById("confirm-bet");
+    const cancelButton = document.getElementById("cancel-bet");
 
     // Apostar todo
     betAllButton.onclick = () => {
@@ -200,6 +211,11 @@ function showBetModal(jugador) {
             alert("Ingrese un monto válido.");
         }
     };
+
+    cancelButton.onclick = () => {
+        botones.disabled = false;
+        modal.style.display = "none";
+    }
 
     // Mostrar el modal
     modal.style.display = "flex";
@@ -229,7 +245,6 @@ function procesarApuesta(jugador) {
         pozo += apuestaActual;
         registroApuestas[jugadorNombre].totalPerdido += apuestaActual;
         registrarAccion(`${jugadorNombre} apuesta $${apuestaActual} y pierde con ${cartaNueva}.`);
-        // here the code to restart the round
         restartRound();
         return
     }
