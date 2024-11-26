@@ -7,8 +7,8 @@ body {
 }
 
 .container {
-    max-width: 800px;
-    margin: 20px auto;
+    max-width: 900px;
+    margin: 15px auto;
     padding: 20px;
     background: #fff;
     border-radius: 8px;
@@ -22,51 +22,119 @@ h1, h3 {
 #game-status {
     text-align: center;
     margin-bottom: 20px;
+    font-size: 1.2rem;
+    font-weight: bold;
 }
 
+/* Flexbox layout for players and log */
+#game-screen section {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+/* Players Section */
+#players {
+    flex: 3; /* Players take 3 parts of the available space */
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* Player cards */
 .player {
     border: 1px solid #ddd;
     padding: 10px;
-    margin: 10px;
-    border-radius: 5px;
+    border-radius: 8px;
     background: #f9f9f9;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     text-align: center;
+    transition: transform 0.2s, background-color 0.2s;
 }
 
-button {
+.player:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+}
+
+.player.current-turn {
+    background-color: #eef; /* Highlight the current player's card */
+    border: 2px solid #007bff;
+}
+
+.player h3 {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+    color: #007bff;
+}
+
+.player p {
+    margin: 10px 0;
+    font-size: 0.9rem;
+    color: #555;
+}
+
+/* Buttons inside player cards */
+.player button {
     margin: 5px;
-    padding: 10px 15px;
-    border: none;
-    border-radius: 5px;
+    padding: 8px 12px;
+    font-size: 0.9rem;
     background-color: #007bff;
     color: white;
+    border: none;
+    border-radius: 5px;
     cursor: pointer;
 }
 
-button:hover {
+.player button:hover {
     background-color: #0056b3;
 }
 
+/* Game Log Section */
 #log {
-    margin-top: 20px;
+    flex: 2; /* Game log takes 2 parts of the available space */
+    padding: 15px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    overflow-y: auto;
+    max-height: 400px;
+}
+
+#log h3 {
+    margin-bottom: 10px;
+    font-size: 1.1rem;
+    color: #007bff;
+    text-align: center;
 }
 
 #game-log {
     list-style: none;
     padding: 0;
-    overflow-y: hidden;
-    max-height: 300px;
+    margin: 0;
+    max-height: 340px;
+    overflow-y: auto;
     scrollbar-width: thin;
     scrollbar-color: #007bff #f9f9f9;
 }
 
+/* Individual log items */
 #game-log li {
     margin: 5px 0;
-    padding: 5px;
+    padding: 8px;
     background: #eef;
     border-left: 5px solid #007bff;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    color: #333;
 }
 
+/* Smooth scrolling for logs */
+#game-log {
+    scroll-behavior: smooth;
+}
+
+/* Modal styles */
 .modal {
     position: fixed;
     top: 0;
@@ -102,12 +170,35 @@ button:hover {
     background-color: #0056b3;
 }
 
+/* Logo styling */
 #logo {
     text-align: center;
     margin-bottom: 20px;
 }
 
 #logo img {
-    width: 750px; /* Adjust size as needed */
+    width: 200px; /* Adjust size as needed */
     height: auto;
+}
+
+/* General buttons */
+button {
+    margin: 5px;
+    padding: 5px 9.5px;
+    border: none;
+    border-radius: 5px;
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+#results-list li {
+    list-style: none;
+}
+
+#results-list {
+    padding-inline-start: 0px;
 }

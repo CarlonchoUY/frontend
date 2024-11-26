@@ -94,15 +94,14 @@ function shuffle(array) {
 
 // Registrar acciones
 function registerAction(message) {
-    const log = document.getElementById("game-log")
+    const log = document.getElementById("game-log");
     const li = document.createElement("li");
     li.textContent = message;
     log.appendChild(li);
-    if (log.offsetHeight == 300) {
-        log.style.overflowY = "scroll";
-    }
-    
+
+    log.scrollTop = log.scrollHeight;
 }
+
 
 function initiliazeCards() {
     deck = shuffle(generateDeck());
@@ -287,7 +286,7 @@ function showResults() {
     });
 
     log.appendChild(results);
-
+    
     if (log.offsetHeight == 300) {
         log.style.overflowY = "scroll";
     }
