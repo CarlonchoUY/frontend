@@ -54,6 +54,10 @@ button:hover {
 #game-log {
     list-style: none;
     padding: 0;
+    overflow-y: hidden;
+    max-height: 300px;
+    scrollbar-width: thin;
+    scrollbar-color: #007bff #f9f9f9;
 }
 
 #game-log li {
